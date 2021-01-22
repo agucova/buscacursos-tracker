@@ -34,3 +34,4 @@ for i in range(periods):
     inicio += delta
     print("INFO: Waiting until", inicio, "(Cycle" + str(i + 1) + ")")
     pause.until(inicio)
+print("INFO: No more cycles left. Stopping program...")
