@@ -8,7 +8,7 @@ from helpers import writevacancies
 semester = "2021-1"
 storagep = "registro.csv"
 targetsp = "ramos.csv"
-inicio = datetime.datetime(2021, 1, 22, 7, 50)
+inicio = datetime.datetime(2021, 1, 22, 7, 45)
 granularidad = 20  # en minutos
 
 # load target courses
@@ -21,7 +21,9 @@ if not exists(storagep) or getsize(storagep) == 0:
     storage.to_csv(storagep, index=False)
 
 
-periods = int((60 / granularidad) * 12)  # 12 horas en total
+periods = int(
+    (60 / granularidad) * 13
+)  # 13 horas en total (son 12, pero para estar seguro)
 print("INFO: A total of", periods, "cycles will be run.")
 delta = datetime.timedelta(minutes=granularidad)
 
