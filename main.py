@@ -8,8 +8,8 @@ from helpers import writevacancies
 semester = "2021-1"
 storagep = "registro.csv"
 targetsp = "ramos.csv"
-inicio = datetime.datetime(2021, 1, 22, 4, 1)
-granularidad = 1  # en minutos
+inicio = datetime.datetime(2021, 1, 22, 7, 50)
+granularidad = 20  # en minutos
 
 # load target courses
 targetsdf = pd.read_csv(targetsp)
@@ -21,13 +21,14 @@ if not exists(storagep) or getsize(storagep) == 0:
     storage.to_csv(storagep, index=False)
 
 
-periodos = int((60 / granularidad) * 12)  # 12 horas en total
+periods = int((60 / granularidad) * 12)  # 12 horas en total
+print("INFO: A total of", periods, "cycles will be run.")
 delta = datetime.timedelta(minutes=granularidad)
 
-print("INFO: Waiting until", inicio)
+print("INFO: Waiting until", inicio, "(Cycle 0)")
 pause.until(inicio)
-for i in range(periodos):
+for i in range(periods):
     writevacancies(storagep, targetsdf, semester)
     inicio += delta
-    print("INFO: Waiting until", inicio)
+    print("INFO: Waiting until", inicio, "(Cycle" + str(i + 1) + ")")
     pause.until(inicio)
